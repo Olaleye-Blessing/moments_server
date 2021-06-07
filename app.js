@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import postRoutes from "./routes/post.js";
+import momentRoutes from "./routes/moment.js";
 
 const app = express();
 
@@ -16,6 +16,6 @@ app.get("/", (req, res, next) => {
     });
 });
 
-app.use("/posts", postRoutes);
+app.use("/moments", momentRoutes);
 
 export { app };
