@@ -6,7 +6,7 @@ export const getMoments = async (req, res, next) => {
 
         return res.status(200).json({
             "status": "success",
-            moments: [],
+            moments,
         });
     } catch (error) {
         return res.status(404).json({
