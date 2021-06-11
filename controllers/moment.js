@@ -2,8 +2,13 @@ import Moment from "../model/moment.js";
 
 export const getMoments = async (req, res, next) => {
     try {
-        let moments = await Moment.find();
+        let moments = await Moment.find().populate({
+            path: "creator",
+            select: "name",
+        });
+        moments.forEach((moment) => (moment.__v = undefined));
 
+        // console.log(moments[0]);
         return res.status(200).json({
             "status": "success",
             moments,
@@ -16,21 +21,24 @@ export const getMoments = async (req, res, next) => {
 };
 
 export const createMoment = async (req, res, next) => {
+    console.log(req.user);
     // let { title, message, creator, tags, selectedFile, likes, createdAt } = req.body;
 
-    let { title, message, creator, tags, image } = req.body;
+    let { title, message, tags, image } = req.body;
     tags = tags.split(" ");
 
+    let creator = req.user._id;
+
     let moment = await Moment.create({
+        creator,
         title,
         message,
-        creator,
         tags,
         image,
     });
 
     res.status(201).json({
-        "type": "post created",
+        "status": "success",
         moment,
     });
 };

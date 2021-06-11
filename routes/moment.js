@@ -1,4 +1,5 @@
 import express from "express";
+import { protect } from "../controllers/authentication.js";
 
 import {
     createMoment,
@@ -10,6 +11,9 @@ import {
 const router = express.Router();
 
 router.get("/", getMoments);
+
+router.use(protect);
+
 router.post("/", createMoment);
 router.patch("/:id", updateMoment);
 router.delete("/:id", deleteMoment);

@@ -6,8 +6,10 @@ const model = mongoose.model;
 const momentSchema = new Schema({
     title: String,
     message: String,
-    creator: String,
-    // tags: [String],
+    creator: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+    },
     tags: [
         {
             type: String,
@@ -18,10 +20,6 @@ const momentSchema = new Schema({
         type: String,
         default: 0,
     },
-    // createdAt: {
-    //     type: Date,
-    //     default: Date.now,
-    // },
     createdAt: {
         type: Date,
         default: () => Date.now(),
