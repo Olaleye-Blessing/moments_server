@@ -28,7 +28,8 @@ const sendToken = (user, statusCode, res) => {
 };
 
 export const signup = catchAsync(async (req, res, next) => {
-    let { firstName, lastName, email, password, confirmPassword } = req.body;
+    let { firstName, lastName, email, password, confirmPassword, profilePic } =
+        req.body;
 
     if (!firstName) return next(new AppError("Please provide first name", 400));
 
@@ -41,7 +42,7 @@ export const signup = catchAsync(async (req, res, next) => {
         email,
         password,
         confirmPassword,
-        // profilePic,
+        profilePic,
     });
 
     return sendToken(user, 201, res);
