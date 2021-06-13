@@ -1,10 +1,11 @@
 import Moment from "../model/moment.js";
+import { catchAsync } from "../utility/catchAsync.js";
 
 export const getMoments = async (req, res, next) => {
     try {
         let moments = await Moment.find().populate({
             path: "creator",
-            select: "name",
+            // select: "name",
         });
         moments.forEach((moment) => (moment.__v = undefined));
 
@@ -20,8 +21,19 @@ export const getMoments = async (req, res, next) => {
     }
 };
 
+export const getMoment = catchAsync(async (req, res, next) => {
+    let { id } = req.params;
+
+    let moment = await Moment.findById(id).populate({
+        path: "creator",
+        select: "-password -__v",
+    });
+
+    return res.status(200).json({ status: "success", data: moment });
+});
+
 export const createMoment = async (req, res, next) => {
-    console.log(req.user);
+    // console.log(req.user);
     // let { title, message, creator, tags, selectedFile, likes, createdAt } = req.body;
 
     let { title, message, tags, image } = req.body;

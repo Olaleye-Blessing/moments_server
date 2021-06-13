@@ -4,6 +4,7 @@ import { protect } from "../controllers/authentication.js";
 import {
     createMoment,
     deleteMoment,
+    getMoment,
     getMoments,
     updateMoment,
 } from "../controllers/moment.js";
@@ -11,6 +12,7 @@ import {
 const router = express.Router();
 
 router.get("/", getMoments);
+router.get("/:id", getMoment);
 
 router.use(protect);
 
