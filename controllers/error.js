@@ -10,7 +10,16 @@ const handleDBValidationError = (err) => {
     return keyErrorsMessages;
 };
 
+const handleDuplicateValueError = (err) => {
+    let key = Object.keys(err.keyValue)[0].trim();
+    let val = err.keyValue[key];
+
+    let message = `This ${key}: ${val} is in use`;
+    return message;
+};
+
 export const globalErrorHandler = (err, req, res, next) => {
+    // console.log(err);
     err.statusCode = err.statusCode || 500;
     err.status = err.status || "error";
 
@@ -19,7 +28,12 @@ export const globalErrorHandler = (err, req, res, next) => {
         err.statusCode = 400;
     }
 
-    console.log({ ...err });
+    if (err.code === 11000) {
+        err.message = handleDuplicateValueError(err);
+        err.statusCode = 400;
+    }
+
+    // console.log({ ...err });
 
     return res.status(err.statusCode).json({
         status: err.status,
