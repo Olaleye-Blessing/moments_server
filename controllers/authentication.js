@@ -78,7 +78,7 @@ export const logout = async (req, res, next) => {
 };
 
 export const protect = async (req, res, next) => {
-    console.log("protecting...🩸🩸🩸🩸🩸");
+    // console.log("protecting...🩸🩸🩸🩸🩸");
     let token = req.cookies.jwt;
 
     if (!token) {
