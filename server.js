@@ -25,6 +25,7 @@ mongoose
 
 const server = app.listen(PORT, () => {
     console.log(`app is listening on port ${PORT}...`);
+    console.log("started...");
 });
 
 process.on("unhandledRejection", (err) => {
