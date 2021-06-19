@@ -5,6 +5,7 @@ import helmet from "helmet";
 
 import momentRoutes from "./routes/moment.js";
 import authenticationRoutes from "./routes/users.js";
+import commentRoutes from "./routes/comment.js";
 import { parseCookie } from "./utility/parseCookie.js";
 import { globalErrorHandler } from "./controllers/error.js";
 
@@ -33,6 +34,7 @@ app.use(parseCookie);
 
 app.use("/moments", momentRoutes);
 app.use("/auth", authenticationRoutes);
+app.use("/comments", commentRoutes);
 
 app.use(globalErrorHandler);
 export { app };

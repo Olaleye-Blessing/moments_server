@@ -3,11 +3,14 @@ import { catchAsync } from "../utility/catchAsync.js";
 
 export const getMoments = async (req, res, next) => {
     try {
-        let moments = await Moment.find().populate({
-            path: "creator",
-            // select: "name",
-        });
-        moments.forEach((moment) => (moment.__v = undefined));
+        // let moments = await Moment.find().populate({
+        //     path: "creator comment",
+        //     // select: "name",
+        // });
+
+        let moments = await Moment.find();
+        // moments.forEach((moment) => (moment.__v = undefined));
+        // console.log(moments);
 
         // console.log(moments[0]);
         return res.status(200).json({
@@ -24,10 +27,14 @@ export const getMoments = async (req, res, next) => {
 export const getMoment = catchAsync(async (req, res, next) => {
     let { id } = req.params;
 
-    let moment = await Moment.findById(id).populate({
-        path: "creator",
-        select: "-password -__v",
-    });
+    // let moment = await Moment.findById(id).populate({
+    //     path: "creator",
+    //     select: "-password -__v",
+    // });
+
+    let moment = await Moment.findById(id);
+    // let moment = await Moment.findById(id).populate("comments");
+    console.log(moment);
 
     return res.status(200).json({ status: "success", data: moment });
 });
