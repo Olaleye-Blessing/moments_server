@@ -16,6 +16,12 @@ const userSchema = new Schema({
         lowercase: true,
         validate: [validateEmail, "invalid email"],
     },
+    bio: {
+        type: String,
+        default: "",
+    },
+    nickname: String,
+    coverPic: String,
     password: {
         type: String,
         required: [true, "please provide your password"],
