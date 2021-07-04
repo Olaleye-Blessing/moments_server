@@ -6,8 +6,6 @@ import User from "../model/users.js";
 import { catchAsync } from "../utility/catchAsync.js";
 import { AppError } from "../utility/AppError.js";
 
-const nodeEnv = process.env.NODE_ENV.trim();
-
 const signToken = (id) =>
     jwt.sign({ id }, process.env.JWT_SECRET_KEY, {
         expiresIn: process.env.JWT_EXPIRES_IN,
@@ -20,8 +18,7 @@ const sendToken = (user, statusCode, res) => {
             Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
-        secure: nodeEnv !== "development",
-        // secure: true,
+        secure: process.env.NODE_ENV.trim() === "production",
     };
 
     res.cookie("jwt", token, cookieOptions);
