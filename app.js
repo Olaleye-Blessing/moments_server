@@ -6,7 +6,7 @@ import helmet from "helmet";
 import momentRoutes from "./routes/moment.js";
 import authenticationRoutes from "./routes/users.js";
 import commentRoutes from "./routes/comment.js";
-import { parseCookie } from "./utility/parseCookie.js";
+// import { parseCookie } from "./utility/parseCookie.js";
 import { globalErrorHandler } from "./controllers/error.js";
 
 const app = express();
@@ -15,6 +15,8 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.json({ limit: "30mb" }));
 
 // app.use(cors());
+
+app.enable("trust proxy");
 
 app.use(
     cors({
@@ -28,9 +30,9 @@ app.use(
 
 // app.use(helmet());
 
-app.use(parseCookie);
+// app.use(parseCookie);
 
-// app.use(cookieParser());
+app.use(cookieParser());
 
 app.use("/moments", momentRoutes);
 app.use("/auth", authenticationRoutes);
